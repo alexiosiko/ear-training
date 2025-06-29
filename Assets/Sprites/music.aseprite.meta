@@ -145,7 +145,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: spritesheet_0
+  - name: music_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -157,7 +157,7 @@ ScriptedImporter:
       y: 4
       width: 90
       height: 474
-    spriteID: 93f69e4c19e8ebe0c91013dea2b9d4b1
+    spriteID: 68f06474d5b5c1211a9402422b0b235b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -166,7 +166,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: spritesheet_1
+  - name: music_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -178,7 +178,7 @@ ScriptedImporter:
       y: 164
       width: 56
       height: 312
-    spriteID: ddfa25490c1726e61b0aa3b07fef9dc7
+    spriteID: da3af72cc0ec94235a2e404177773943
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -187,9 +187,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: spritesheet_2
+  - name: music_2
     originalName: 
-    pivot: {x: 0.48864278, y: 0.18569414}
+    pivot: {x: 0.48532555, y: 0.18454991}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -199,7 +199,28 @@ ScriptedImporter:
       y: 300
       width: 85
       height: 172
-    spriteID: 23479b5e3007f869cad2e651efffd041
+    spriteID: 388decb085e4b87768d9fa44b22782be
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: music_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 300
+      y: 294
+      width: 136
+      height: 112
+    spriteID: d05af569010cb8bba8d34f385beb5eb2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -216,13 +237,13 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: spritesheet
+    - name: music
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 4
         y: 19
-        width: 267
+        width: 432
         height: 474
       spriteId: 951bf3fd481ecd115964a86ba9602b70
     linkedCells: []

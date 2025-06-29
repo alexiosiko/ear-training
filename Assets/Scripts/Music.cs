@@ -19,14 +19,15 @@ public static class Music
 		{ Scale.major, new int[] { 0, 2, 4, 5, 7, 9, 11 } },
 	};
 
-	public static string[] GetNotesInScale(Key key, Scale scale)
+	public static string[] GetNotesInScale()
 	{
+
 		// Find root index of key, first occurrence in octave 4
-		string rootNote = key.ToString() + "4";
+		string rootNote = Settings.key.ToString() + "4";
 		int rootIndex = System.Array.IndexOf(notes, rootNote);
 		if (rootIndex == -1) return new string[0];
 
-		int[] intervals = scales[scale];
+		int[] intervals = scales[Settings.scale];
 		List<string> scaleNotes = new List<string>();
 
 		foreach (int interval in intervals)
