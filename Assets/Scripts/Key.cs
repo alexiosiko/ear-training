@@ -14,6 +14,6 @@ public class Key : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         source.Play();
-        Notes.Singleton.AddNote(Notes.NoteNameToChildPosition(source.clip.name));
+        TrembleCleff.Singleton.AddNote(source.clip.name);
     }
 }

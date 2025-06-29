@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2185308740058497641}
   - component: {fileID: 6405247817961662087}
   - component: {fileID: 3695112760844913617}
-  - component: {fileID: 5631814803435793315}
+  - component: {fileID: 7389760914293830357}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -147,7 +147,7 @@ Animator:
   m_GameObject: {fileID: 949724029716522896}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 59f1dcd1c2df7f6f1824daff28eebc8c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1d98327202fdc5ff1ba4f7143be95df4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -256,7 +256,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5631814803435793315
+--- !u!114 &7389760914293830357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,11 +265,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 949724029716522896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe05a22a66207a1e4a3717e8c6bacc9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f6003d5e7a91b3018ff4f30d712d305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightedClip: {fileID: 8300000, guid: 2b79b8009632a0a439d9b3e65a27e16b, type: 3}
-  pressedClip: {fileID: 8300000, guid: ef6c6f7919f25de48a0fc8b467b11661, type: 3}
+  highlightedClip: {fileID: 0}
+  pressedClip: {fileID: 0}
 --- !u!1 &1353161740965637480
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,8 +412,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ba7d793ae0120404e9aece59be3b3f16, type: 2}
-  m_sharedMaterial: {fileID: 7208911557505527674, guid: ba7d793ae0120404e9aece59be3b3f16, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f46820a79e60cddb8b1d25a83164079e, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.35
+  m_fontSize: 73.25
   m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 1

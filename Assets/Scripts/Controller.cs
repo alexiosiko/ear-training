@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Backspace))
 		{
-			Notes.Singleton.RemoveLastNote();
+			TrembleCleff.Singleton.RemoveLastNote();
 		}
     }
 }
