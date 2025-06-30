@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class Music
 {
@@ -19,53 +20,71 @@ public static class Music
 		{ Scale.major, new int[] { 0, 2, 4, 5, 7, 9, 11 } },
 	};
 
+	public static AudioClip[] GetClipsInScale()
+	{
+		string[] noteNames = GetNotesInScale();
+		List<AudioClip> filtered = new();
+
+		foreach (string name in noteNames)
+		{
+			foreach (AudioClip clip in Game.Singleton.allClips)
+			{
+				if (clip.name == name)
+				{
+					filtered.Add(clip);
+					break;
+				}
+			}
+		}
+
+		return filtered.ToArray();
+	}
+
 	public static string[] GetNotesInScale()
 	{
-
 		// Find root index of key, first occurrence in octave 4
 		string rootNote = Settings.key.ToString() + "4";
-		int rootIndex = System.Array.IndexOf(notes, rootNote);
+		int rootIndex = Array.IndexOf(notes, rootNote);
 		if (rootIndex == -1) return new string[0];
 
 		int[] intervals = scales[Settings.scale];
-		List<string> scaleNotes = new List<string>();
+		List<string> scaleNotes = new();
 
 		foreach (int interval in intervals)
 		{
 			int noteIndex = rootIndex + interval;
 
-			// If index goes beyond notes array, wrap into next octave (handle only 2 octaves here)
+			// Wrap into lower octave if needed
 			if (noteIndex >= notes.Length)
-				noteIndex -= 12; // one octave down, or customize as needed
+				noteIndex -= 12;
 
 			scaleNotes.Add(notes[noteIndex]);
 		}
+
 		return scaleNotes.ToArray();
 	}
-	private static Random rng = new Random();
 
-    public static string[] PickRandomNotes(string[] notesInScale, int count)
-    {
-        if (count >= notesInScale.Length)
-            return notesInScale; // return all if count >= available notes
+	private static System.Random rng = new System.Random();
 
-        // Copy array to list for shuffling
-        List<string> notesList = new List<string>(notesInScale);
+    public static AudioClip[] PickRandomClips(AudioClip[] clipsInScale, int count)
+	{
+		if (count >= clipsInScale.Length)
+			return clipsInScale;
 
-        // Fisher-Yates shuffle
-        int n = notesList.Count;
-        while (n > 1)
-        {
-            n--;
-            int k = rng.Next(n + 1);
-            string temp = notesList[k];
-            notesList[k] = notesList[n];
-            notesList[n] = temp;
-        }
+		List<AudioClip> list = new(clipsInScale);
 
-        // Take first 'count' notes after shuffle
-        return notesList.GetRange(0, count).ToArray();
-    }
+		// Fisher-Yates shuffle
+		int n = list.Count;
+		while (n > 1)
+		{
+			n--;
+			int k = rng.Next(n + 1);
+			(list[k], list[n]) = (list[n], list[k]);
+		}
+
+		return list.GetRange(0, count).ToArray();
+	}
+
 	public static int NoteNameToChildPosition(string note)
 	{
 		switch (note)

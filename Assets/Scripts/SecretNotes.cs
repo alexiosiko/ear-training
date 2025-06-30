@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class SecretNotes : MonoBehaviour
 {
-	[SerializeField] string[] notesInScale;
 	List<RectTransform> secretNotes;
 	[SerializeField] GameObject noteObject;
-	public void DeleteSecretNotes()
+	[SerializeField] Transform secretTrembleCleffTransform;
+	public void ResetNotes()
 	{
 		if (secretNotes != null)
 			foreach (RectTransform note in secretNotes)
@@ -18,7 +18,7 @@ public class SecretNotes : MonoBehaviour
 		secretNotes.Clear(); // Clear after loop
 	}
 
-	public void AddSecretNote(string noteName)
+	public void AddSecretNote(AudioClip clip)
 	{
 
 		if (secretNotes == null)
@@ -27,18 +27,18 @@ public class SecretNotes : MonoBehaviour
 		if (secretNotes.Count == Settings.maxNotes)
 			return;
 
-		int childCount = Music.NoteNameToChildPosition(noteName);
+		int childCount = Music.NoteNameToChildPosition(clip.name);
 
 		// Instantiate note
-		GameObject newNoteObj = Instantiate(noteObject, transform);
+		GameObject newNoteObj = Instantiate(noteObject, secretTrembleCleffTransform);
 
 		// Store name in note
-		newNoteObj.GetComponent<Note>().note = noteName;
+		newNoteObj.GetComponent<Note>().clip = clip;
 
 		RectTransform newNoteRect = newNoteObj.GetComponent<RectTransform>();
 
 		// Parent to correct line
-		Transform line = transform.GetChild(childCount);
+		Transform line = secretTrembleCleffTransform.GetChild(childCount);
 		newNoteRect.SetParent(line);
 
 		// Positioning
@@ -53,14 +53,16 @@ public class SecretNotes : MonoBehaviour
 		secretNotes.Add(newNoteRect);
 	}
 
+	[SerializeField] AudioClip[] clipsInScale;
+
 	public void Shuffle()
 	{
-		DeleteSecretNotes();
-
-		string[] notes = Music.PickRandomNotes(notesInScale, Settings.maxNotes);
-		foreach (string note in notes)
-			AddSecretNote(note);
+		ResetNotes();
+		var chosen = Music.PickRandomClips(clipsInScale, Settings.maxNotes);
+		foreach (var clip in chosen)
+			AddSecretNote(clip);
 	}
+
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.G))
@@ -68,9 +70,14 @@ public class SecretNotes : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.S))
 			Shuffle();
 	}
-	
+	void Awake()
+	{
+		GetNotesInScale();
+		Shuffle();
+	}
+
 	public void GetNotesInScale()
 	{
-		notesInScale = Music.GetNotesInScale();
+		clipsInScale = Music.GetClipsInScale();
 	}
 }

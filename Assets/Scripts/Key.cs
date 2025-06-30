@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,6 +6,7 @@ using UnityEngine.EventSystems;
 public class Key : MonoBehaviour, IPointerDownHandler
 {
     AudioSource source;
+	[SerializeField] TrembleCleff[] trembleCleffs;
 
     void Awake()
     {
@@ -14,6 +16,8 @@ public class Key : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         source.Play();
-        TrembleCleff.Singleton.AddNote(source.clip.name);
+
+		foreach (var t in trembleCleffs)
+			t.AddNote(source.clip);	
     }
 }

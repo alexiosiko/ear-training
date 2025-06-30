@@ -1,16 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class TrembleCleff : MonoBehaviour
 {
-
 	[SerializeField] GameObject noteObject;
-	List<RectTransform> notes;
-
-	public void AddNote(string noteName)
+	List<RectTransform> notes = new List<RectTransform>();
+	public void AddNote(AudioClip clip)
 	{
-		int childCount = Music.NoteNameToChildPosition(noteName);
+
+		int childCount = Music.NoteNameToChildPosition(clip.name);
 		if (notes.Count == Settings.maxNotes)
 			return;
 
@@ -18,8 +18,7 @@ public class TrembleCleff : MonoBehaviour
 		GameObject newNoteObj = Instantiate(noteObject, transform);
 
 		// Store name in note
-		print(noteName);
-		newNoteObj.GetComponent<Note>().note = noteName;
+		newNoteObj.GetComponent<Note>().clip = clip;
 
 		RectTransform newNoteRect = newNoteObj.GetComponent<RectTransform>();
 
@@ -42,6 +41,7 @@ public class TrembleCleff : MonoBehaviour
 	}
 	public void RemoveLastNote()
 	{
+
 		if (notes.Count == 0)
 			return;
 
@@ -49,10 +49,13 @@ public class TrembleCleff : MonoBehaviour
 		Destroy(notes[last].gameObject);          // destroy the UI note
 		notes.RemoveAt(last);                     // remove it from the list
 
+
 	}
 
-	void ResetNotes()
+	public void ResetNotes()
 	{
+		StopAllCoroutines();
+
 		if (notes != null)
 			foreach (RectTransform note in notes)
 				Destroy(note.gameObject);
@@ -61,17 +64,9 @@ public class TrembleCleff : MonoBehaviour
 
 		notes.Clear();
 	}
-	
-
-
-
-
-	public static TrembleCleff Singleton;
-	void Awake()
+	void Play()
 	{
-		Singleton = this;
-		ResetNotes();
-
+		TrembleCleffSound.Singleton.Play(ref notes);
 	}
 
 }
