@@ -35,13 +35,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8685377949801729791}
-  - {fileID: 8544424266035846440}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 540, y: -995}
-  m_SizeDelta: {x: 400, y: 91.5664}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6498153692425597928
 CanvasRenderer:
@@ -172,7 +171,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -268,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6003d5e7a91b3018ff4f30d712d305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightedClip: {fileID: 0}
-  pressedClip: {fileID: 0}
+  highlightedClip: {fileID: 8300000, guid: 15004dc56195a1443a5ff86164b3f446, type: 3}
+  pressedClip: {fileID: 8300000, guid: 57e6a45092a44fd49a197c3bc110b036, type: 3}
 --- !u!1 &1353161740965637480
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +298,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8544424266035846440}
   m_Father: {fileID: 8430259949249636756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -375,12 +375,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8430259949249636756}
+  m_Father: {fileID: 8685377949801729791}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 16.10049}
-  m_SizeDelta: {x: -69.4417, y: -4.0898}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &174820136246965658
 CanvasRenderer:
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_text: Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f46820a79e60cddb8b1d25a83164079e, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6780741343619756930, guid: f46820a79e60cddb8b1d25a83164079e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 73.25
+  m_fontSize: 63.35
   m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 1

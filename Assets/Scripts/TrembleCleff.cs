@@ -1,73 +1,97 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
-
-
 public class TrembleCleff : MonoBehaviour
 {
 	[SerializeField] GameObject noteObject;
-	List<RectTransform> notes = new List<RectTransform>();
+	public RectTransform[] notes;
+	int nextNoteIndex = 0;
+	int hiddenNoteChildCount = 6;
 	public void AddNote(AudioClip clip)
 	{
-
-		int childCount = Music.NoteNameToChildPosition(clip.name);
-		if (notes.Count == Settings.maxNotes)
+		if (nextNoteIndex == Settings.maxNotes)
 			return;
 
-		// Instantiate under the UI parent (do not set position/rotation)
-		GameObject newNoteObj = Instantiate(noteObject, transform);
 
-		// Store name in note
-		newNoteObj.GetComponent<Note>().clip = clip;
+		RectTransform noteRect = notes[nextNoteIndex];
+		Note note = noteRect.GetComponent<Note>();
+		note.clip = clip;
+		note.Reveal();
 
-		RectTransform newNoteRect = newNoteObj.GetComponent<RectTransform>();
+		int childIndex = Music.NoteNameToChildPosition(clip.name);
+		Transform line = transform.GetChild(childIndex);
+		noteRect.SetParent(line);
 
-		Transform line = transform.GetChild(childCount);
-		newNoteRect.SetParent(line);
+		noteRect.anchoredPosition = new(GetX(nextNoteIndex, GetComponent<RectTransform>()), 0);
+
+		nextNoteIndex++;
 
 
-		float padding = 200f;
-
-		// Get x pos
-		float totalWidth = transform.GetComponent<RectTransform>().rect.width - padding;
-		float gap = totalWidth / Settings.maxNotes;
-		float x = gap * notes.Count - totalWidth / 2f + padding / 2f;
-
-		// Set x pos
-		newNoteRect.anchoredPosition = new(x, 0);
-
-		// Store
-		notes.Add(newNoteRect);
 	}
 	public void RemoveLastNote()
 	{
-
-		if (notes.Count == 0)
+		if (nextNoteIndex == 0)
 			return;
 
-		int last = notes.Count - 1;               // correct index of last item
-		Destroy(notes[last].gameObject);          // destroy the UI note
-		notes.RemoveAt(last);                     // remove it from the list
+		nextNoteIndex--;
+
+		RectTransform noteRect = notes[nextNoteIndex];
+		noteRect.SetParent(transform.GetChild(hiddenNoteChildCount));
+		Note note = noteRect.GetComponent<Note>();
+		note.Hide();
 
 
+
+		// int last = notes.Count - 1;               // correct index of last item
+		// Destroy(notes[last].gameObject);          // destroy the UI note
+		// notes.RemoveAt(last);                     // remove it from the list
+
+
+	}
+	void Awake()
+	{
+		notes = new RectTransform[Settings.maxNotes];
+		for (int i = 0; i < notes.Length; i++)
+		{
+			RectTransform h = Instantiate(noteObject).GetComponent<RectTransform>();
+			h.SetParent(transform.GetChild(hiddenNoteChildCount));
+			notes[i] = h;
+			h.GetComponent<Note>().Hide();
+
+		}
+
+
+		Singleton = this;
+	}
+	void Update()
+	{
+		for (int i = 0; i < notes.Length; i++)
+		{
+			RectTransform h = notes[i];
+			h.anchoredPosition = new Vector2(GetX(i, GetComponent<RectTransform>()), 0);
+		}
+	}
+
+	public static float GetX(int noteNumber, RectTransform trembleRectTransform)
+	{
+		float padding = 400f;
+		float leftPadding = 40f;
+		float width = trembleRectTransform.rect.width - padding;
+		float gap = width / (Settings.maxNotes - 1);
+		float x = -width / 2f + gap * noteNumber + leftPadding;
+		return x;
 	}
 
 	public void ResetNotes()
 	{
-		StopAllCoroutines();
-
-		if (notes != null)
-			foreach (RectTransform note in notes)
-				Destroy(note.gameObject);
-		else
-			notes = new List<RectTransform>();
-
-		notes.Clear();
+		for (int i = 0; i < notes.Length; i++)
+			RemoveLastNote();
 	}
-	void Play()
+	
+	public void Play()
 	{
-		TrembleCleffSound.Singleton.Play(ref notes);
+		TrembleCleffSound.Singleton.Play(notes, notes);
 	}
+
+	public static TrembleCleff Singleton;
 
 }
 

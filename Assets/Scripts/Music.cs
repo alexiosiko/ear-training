@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 
 public static class Music
 {
 	public enum Scale { minor, major }
-	public enum Key { C, D, E, F, G, A, B }  // Removed H for music standard
+	public enum Key { C, Cs,  D, Ds, E, F, Fs,  G, Gs, A, As, B }  // Removed H for music standard
 
 	public static readonly string[] notes = {
 		"C4", "C#4", "D4", "D#4", "E4", "F4",
@@ -23,6 +26,7 @@ public static class Music
 	public static AudioClip[] GetClipsInScale()
 	{
 		string[] noteNames = GetNotesInScale();
+		Debug.Log(noteNames.ToCommaSeparatedString());
 		List<AudioClip> filtered = new();
 
 		foreach (string name in noteNames)
@@ -41,28 +45,41 @@ public static class Music
 	}
 
 	public static string[] GetNotesInScale()
+{
+	// Get saved values from PlayerPrefs
+	string keyStr = PlayerPrefs.GetString("Key", "C");
+	keyStr = keyStr.Replace('#', 's');
+	string scaleStr = PlayerPrefs.GetString("Scale", "minor").ToLower();
+
+		Debug.Log(keyStr);
+
+
+	// Parse enums
+		if (!Enum.TryParse<Key>(keyStr, out Key key)) return new string[0];
+	if (!Enum.TryParse<Scale>(scaleStr, out Scale scale)) return new string[0];
+	
+
+
+	// Find root note
+	string rootNote = key.ToString() + "4";
+	rootNote = rootNote.Replace('s', '#');
+	int rootIndex = Array.IndexOf(notes, rootNote);
+	if (rootIndex == -1) return new string[0];
+
+	// Build scale
+	int[] intervals = scales[scale];
+	List<string> scaleNotes = new();
+
+	foreach (int interval in intervals)
 	{
-		// Find root index of key, first occurrence in octave 4
-		string rootNote = Settings.key.ToString() + "4";
-		int rootIndex = Array.IndexOf(notes, rootNote);
-		if (rootIndex == -1) return new string[0];
-
-		int[] intervals = scales[Settings.scale];
-		List<string> scaleNotes = new();
-
-		foreach (int interval in intervals)
-		{
-			int noteIndex = rootIndex + interval;
-
-			// Wrap into lower octave if needed
-			if (noteIndex >= notes.Length)
-				noteIndex -= 12;
-
-			scaleNotes.Add(notes[noteIndex]);
-		}
-
-		return scaleNotes.ToArray();
+		int noteIndex = rootIndex + interval;
+		if (noteIndex >= notes.Length) noteIndex -= 12;
+		scaleNotes.Add(notes[noteIndex]);
 	}
+
+	
+	return scaleNotes.ToArray();
+}
 
 	private static System.Random rng = new System.Random();
 

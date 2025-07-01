@@ -51,7 +51,7 @@ ScriptedImporter:
     flipbookColumns: 0
     ignorePngGamma: 0
     cookieMode: 0
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -98,7 +98,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638866101025743150
+  platformSettingsDirtyTick: 638869940313830470
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -154,7 +154,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 781
       width: 90
       height: 474
     spriteID: 68f06474d5b5c1211a9402422b0b235b
@@ -175,7 +175,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 111
-      y: 164
+      y: 941
       width: 56
       height: 312
     spriteID: da3af72cc0ec94235a2e404177773943
@@ -189,16 +189,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: music_2
     originalName: 
-    pivot: {x: 0.48532555, y: 0.18454991}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 186
-      y: 300
-      width: 85
-      height: 172
+      x: 300
+      y: 1071
+      width: 136
+      height: 112
     spriteID: 388decb085e4b87768d9fa44b22782be
     spriteBone: []
     spriteOutline: []
@@ -216,11 +216,53 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 300
-      y: 294
-      width: 136
-      height: 112
+      x: 645
+      y: 949
+      width: 108
+      height: 294
     spriteID: d05af569010cb8bba8d34f385beb5eb2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: music_5
+    originalName: 
+    pivot: {x: 0.5061322, y: 0.51163816}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 171
+      y: 801
+      width: 346
+      height: 181
+    spriteID: 936518294584a828a81641846c7f14ab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: music_6
+    originalName: 
+    pivot: {x: 0.5024556, y: 0.1367754}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 231
+      width: 346
+      height: 181
+    spriteID: bb1f93236c9619e9abc5694aeca2f93c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -242,9 +284,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 4
-        y: 19
-        width: 432
-        height: 474
+        y: 6
+        width: 749
+        height: 1251
       spriteId: 951bf3fd481ecd115964a86ba9602b70
     linkedCells: []
     parentIndex: -1
@@ -288,5 +330,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 800, y: 496}
-  previousTextureSize: {x: 512, y: 512}
+  canvasSize: {x: 800, y: 1260}
+  previousTextureSize: {x: 1024, y: 2048}

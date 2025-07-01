@@ -191,7 +191,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trembleCleffs:
   - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &6665697097534988928
 MonoBehaviour:
   m_ObjectHideFlags: 0

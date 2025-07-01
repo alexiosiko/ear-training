@@ -310,7 +310,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trembleCleffs:
   - {fileID: 0}
-  - {fileID: 0}
 --- !u!95 &1125807753421468829
 Animator:
   serializedVersion: 7

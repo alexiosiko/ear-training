@@ -10,11 +10,11 @@ public class ButtonEffects : MonoBehaviour
 	void Awake() => source = GetComponent<AudioSource>();
 	public void PlayButtonHighlight()
 	{
-		// source.PlayOneShot(highlightedClip);
+		source.PlayOneShot(highlightedClip);
 	}
    	public void PlayPressedClip()
 	{
-		// source.PlayOneShot(pressedClip);
+		source.PlayOneShot(pressedClip);
 	}
 
 }

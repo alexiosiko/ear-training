@@ -51,7 +51,7 @@ ScriptedImporter:
     flipbookColumns: 0
     ignorePngGamma: 0
     cookieMode: 0
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -98,7 +98,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638866493599881960
+  platformSettingsDirtyTick: 638869940218879960
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -263,6 +263,27 @@ ScriptedImporter:
       width: 764
       height: 764
     spriteID: 5ef7226c609713c6aa315ff407d7128b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: ui_6
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 803
+      y: 439
+      width: 295
+      height: 301
+    spriteID: b51f0efdbd0139cdb83dd72676d2f9be
     spriteBone: []
     spriteOutline: []
     vertices: []

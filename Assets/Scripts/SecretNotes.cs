@@ -3,29 +3,12 @@ using UnityEngine;
 
 public class SecretNotes : MonoBehaviour
 {
-	List<RectTransform> secretNotes;
+	public RectTransform[] secretNotes;
 	[SerializeField] GameObject noteObject;
 	[SerializeField] Transform secretTrembleCleffTransform;
-	public void ResetNotes()
-	{
-		if (secretNotes != null)
-			foreach (RectTransform note in secretNotes)
-				Destroy(note.gameObject);
-		else
-			secretNotes = new List<RectTransform>();
-
-
-		secretNotes.Clear(); // Clear after loop
-	}
-
 	public void AddSecretNote(AudioClip clip)
 	{
 
-		if (secretNotes == null)
-			secretNotes = new List<RectTransform>();
-
-		if (secretNotes.Count == Settings.maxNotes)
-			return;
 
 		int childCount = Music.NoteNameToChildPosition(clip.name);
 
@@ -34,6 +17,7 @@ public class SecretNotes : MonoBehaviour
 
 		// Store name in note
 		newNoteObj.GetComponent<Note>().clip = clip;
+		newNoteObj.GetComponent<Note>().Reveal();
 
 		RectTransform newNoteRect = newNoteObj.GetComponent<RectTransform>();
 
@@ -41,43 +25,48 @@ public class SecretNotes : MonoBehaviour
 		Transform line = secretTrembleCleffTransform.GetChild(childCount);
 		newNoteRect.SetParent(line);
 
-		// Positioning
-		float padding = 200f;
-		float totalWidth = transform.GetComponent<RectTransform>().rect.width - padding;
-		float gap = totalWidth / Settings.maxNotes;
-		float x = gap * secretNotes.Count - totalWidth / 2f + padding / 2f;
 
-		newNoteRect.anchoredPosition = new(x, 0);
 
-		// Store
-		secretNotes.Add(newNoteRect);
 	}
 
 	[SerializeField] AudioClip[] clipsInScale;
 
 	public void Shuffle()
 	{
-		ResetNotes();
-		var chosen = Music.PickRandomClips(clipsInScale, Settings.maxNotes);
-		foreach (var clip in chosen)
-			AddSecretNote(clip);
-	}
+		AudioClip[] audioClips = Music.PickRandomClips(clipsInScale, Settings.maxNotes);
+		for (int i = 0; i < secretNotes.Length; i++)
+		{
+			RectTransform t = secretNotes[i];
+			Note note = t.GetComponent<Note>();
+			note.clip = audioClips[i];
+			note.Reveal();
 
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.G))
-			GetNotesInScale();
-		if (Input.GetKeyDown(KeyCode.S))
-			Shuffle();
-	}
-	void Awake()
-	{
-		GetNotesInScale();
-		Shuffle();
-	}
+			// Parent to correct line
+			int childCount = Music.NoteNameToChildPosition(audioClips[i].name);
+			Transform line = secretTrembleCleffTransform.GetChild(childCount);
+			t.SetParent(line);
 
-	public void GetNotesInScale()
+			t.anchoredPosition = new(TrembleCleff.GetX(i, secretTrembleCleffTransform.GetComponent<RectTransform>()), 0);
+		}
+	}
+	void Start()
 	{
 		clipsInScale = Music.GetClipsInScale();
+		secretNotes = new RectTransform[Settings.maxNotes];
+		for (int i = 0; i < secretNotes.Length; i++)
+			secretNotes[i] = Instantiate(noteObject).GetComponent<RectTransform>();
+
+		Shuffle();
+		Singleton = this;
+	}
+	public void Play()
+	{
+		TrembleCleffSound.Singleton.Play(secretNotes, secretNotes);
+	}
+	public static SecretNotes Singleton;
+	public void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.S))
+			Shuffle();
 	}
 }
