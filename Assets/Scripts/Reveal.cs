@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -23,7 +24,8 @@ public class Reveal : MonoBehaviour
 	void Awake()
 	{
 		rect = transform.GetChild(0).GetComponent<RectTransform>();
-		rect.anchoredPosition = new(0, -1000);	
+		rect.anchoredPosition = new(0, -1000);
+		Singleton = this;
 	}
 	IEnumerator DelayDisable()
 	{
@@ -40,4 +42,6 @@ public class Reveal : MonoBehaviour
 		StopAllCoroutines();
 		StartCoroutine(DelayDisable());
 	}
+
+	public static Reveal Singleton;
 }
