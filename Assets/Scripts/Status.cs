@@ -6,29 +6,34 @@ public class Status : MonoBehaviour
 	TMPro.TMP_Text text;
 	[SerializeField] AudioClip winClip;
 	[SerializeField] AudioClip loseClip;
-	void OnEnable()
+	AudioSource source;
+
+	public void GetWinStatus()
 	{
-		GetWinStatus();
-	}
-	void GetWinStatus()
-	{
+		if (SecretNotes.Singleton?.secretNotes == null) return;
+
 		for (int i = 0; i < Settings.maxNotes; i++)
 		{
-			var left = TrembleCleff.Singleton.notes[i].GetComponent<Note>();
-			var right = SecretNotes.Singleton.secretNotes[i].GetComponent<Note>();
-			if (left.clip == null || left.clip.name != right.clip.name)
-			{
+			var left = TrembleCleff.Singleton.notes[i]?.GetComponent<Note>();
+			var rightRect = SecretNotes.Singleton.secretNotes[i];
+			if (rightRect == null) return;
 
+			var right = rightRect.GetComponent<Note>();
+
+			if (left?.clip == null || right?.clip == null || left.clip.name != right.clip.name)
+			{
+				source.PlayOneShot(loseClip);
 				text.text = "Not quite :(";
 				return;
 			}
-
 		}
+		source.PlayOneShot(winClip);
 		text.text = "Pitch perfect :D";
-
 	}
+
 	void Awake()
 	{
 		text = GetComponent<TMPro.TMP_Text>();
+		source = GetComponent<AudioSource>();
 	}
 }

@@ -23,7 +23,7 @@ public class SecretNotes : MonoBehaviour
 
 		// Parent to correct line
 		Transform line = secretTrembleCleffTransform.GetChild(childCount);
-		newNoteRect.SetParent(line);
+		newNoteRect.SetParent(line, false);
 
 
 
@@ -44,12 +44,16 @@ public class SecretNotes : MonoBehaviour
 			// Parent to correct line
 			int childCount = Music.NoteNameToChildPosition(audioClips[i].name);
 			Transform line = secretTrembleCleffTransform.GetChild(childCount);
-			t.SetParent(line);
+			t.SetParent(line, false);
 
-			t.anchoredPosition = new(TrembleCleff.GetX(i, secretTrembleCleffTransform.GetComponent<RectTransform>()), 0);
+			t.anchoredPosition = new(TrembleCleff.GetX(i, TrembleCleff.Singleton.GetComponent<RectTransform>()), 0);
 		}
 	}
 	void Start()
+	{
+		Invoke(nameof(LateStart), 0.1f);
+	}
+	void LateStart()
 	{
 		clipsInScale = Music.GetClipsInScale();
 		secretNotes = new RectTransform[Settings.maxNotes];

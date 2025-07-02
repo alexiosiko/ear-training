@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 public class TrembleCleff : MonoBehaviour
 {
 	[SerializeField] GameObject noteObject;
@@ -48,30 +49,37 @@ public class TrembleCleff : MonoBehaviour
 	}
 	void Awake()
 	{
-		notes = new RectTransform[Settings.maxNotes];
-		for (int i = 0; i < notes.Length; i++)
-		{
-			RectTransform h = Instantiate(noteObject).GetComponent<RectTransform>();
-			h.SetParent(transform.GetChild(hiddenNoteChildCount));
-			notes[i] = h;
-			h.GetComponent<Note>().Hide();
-
-		}
+		
 
 
 		Singleton = this;
 	}
-	void Update()
+	void Start()
 	{
+		Invoke(nameof(LateStart), 0.1f);
+	}
+	void LateStart()
+	{
+		notes = new RectTransform[Settings.maxNotes];
+		for (int i = 0; i < notes.Length; i++)
+		{
+			RectTransform h = Instantiate(noteObject).GetComponent<RectTransform>();
+			h.SetParent(transform.GetChild(hiddenNoteChildCount), false	);
+			notes[i] = h;
+			h.GetComponent<Note>().Hide();
+
+		}
 		for (int i = 0; i < notes.Length; i++)
 		{
 			RectTransform h = notes[i];
 			h.anchoredPosition = new Vector2(GetX(i, GetComponent<RectTransform>()), 0);
 		}
+
 	}
 
 	public static float GetX(int noteNumber, RectTransform trembleRectTransform)
 	{
+		print(trembleRectTransform.rect.width);
 		float padding = 400f;
 		float leftPadding = 40f;
 		float width = trembleRectTransform.rect.width - padding;
